@@ -11,7 +11,7 @@ in interactive mode
 assets stored in it.
 #It does print the instruction to delete vnet, affinity group and storage accoun
 t so use can copy and paste to delete them.
-source ./hdpsetup.sh
+source ./cdhsetup.sh
 
 
 #display the services that will be deleted.
