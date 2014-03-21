@@ -1,7 +1,7 @@
 #!/bin/bash
 #sets up the management node and master node 
 
-source ./hdpsetup.sh
+source ./cdhsetup.sh
 
 if [ -e $mntscript ]; then
         rm $mntscript
