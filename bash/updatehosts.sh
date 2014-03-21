@@ -1,7 +1,7 @@
 #!/bin/bash
 #This script reads the hosts file and mergest its content with /etc/hosts
 
-source ./hdpsetup.sh
+source ./cdhsetup.sh
 
 #check to make sure hosts file exists
 echo "hosts file name is:$hostsfile"
