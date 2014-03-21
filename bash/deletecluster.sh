@@ -1,16 +1,11 @@
 #!/bin/bash
-#This script deletes all the services associated with the cluster defined in hdp
-setup.sh files
-#It checks to see if it is running in an interactive mode. If it running in inte
-ractive mode it asks
-#the user to confirm that cluster will be deleted. If the script is not running
-in interactive mode
+#This script deletes all the services associated with the cluster defined in cdhsetup.sh files
+#It checks to see if it is running in an interactive mode. If it running in interactive mode it asks
+#the user to confirm that cluster will be deleted. If the script is not running in interactive mode
 #it deletes the cluster without prompting the user.
 #It does not delete VNET, Storage Account and Affinity Group.
-#VNET and Affinit group have no cost. Storage account may have images and ohter
-assets stored in it.
-#It does print the instruction to delete vnet, affinity group and storage accoun
-t so use can copy and paste to delete them.
+#VNET and Affinit group have no cost. Storage account may have images and ohter assets stored in it.
+#It does print the instruction to delete vnet, affinity group and storage account so use can copy and paste to delete them.
 source ./cdhsetup.sh
 
 
