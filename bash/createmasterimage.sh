@@ -3,7 +3,7 @@
 #This script creates a virtual machine that will be customized to create an image for nodes in the cluster
 #You will need to make manual updates to the VM before creating an image
 
-source ./hdpsetup.sh
+source ./cdhsetup.sh
 
 #This script requires jq json processor
 #check to see if jq is available and download it if necessary
