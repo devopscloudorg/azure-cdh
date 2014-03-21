@@ -2,7 +2,7 @@
 #Creates the nodes in the cluster from a custom image
 #Expectation is that affinity group, storage account, virtual network have already been setup
 
-source ./hdpsetup.sh
+source ./cdhsetup.sh
 
 #This script requires jq json processor
 #check to see if jq is available and download it if necessary
