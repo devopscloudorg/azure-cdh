@@ -13,9 +13,9 @@ Hadoop on Azure Virtual Machines
     Set-AzureSubscription -SubscriptionName "MySubscription" -CurrentStorageAccount "MyStorageAccount" 
   
 .EXAMPLE 
-  .\3_Cluster_Nodes.ps1 -imageName "azurehdpm" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
-    -vmNamePrefix "azurehdp" -cloudServicePrefix "azurehdp" -numNodes 1 -affinityGroupName "azurehdpAG" -virtualNetworkName "Hadoop-NetworkHDP" -virtualSubnetname "App" `
-    -storageAccountName "hdpstorage" -hostsfile ".\hosts.txt" -mntscript ".\mountdrive.sh" 
+  .\3_Cluster_Nodes.ps1 -imageName "azurecdhc" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
+    -vmNamePrefix "azurecdh" -cloudServicePrefix "azurecdh" -numNodes 1 -affinityGroupName "azurecdhAG" -virtualNetworkName "Hadoop-NetworkCDH" -virtualSubnetname "App" `
+    -storageAccountName "cdhstorage" -hostsfile ".\hosts.txt" -mntscript ".\mountdrive.sh" 
 
 ############################################################################################################>
 

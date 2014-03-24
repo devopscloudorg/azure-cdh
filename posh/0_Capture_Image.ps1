@@ -5,7 +5,7 @@ Hadoop on Azure Virtual Machines
   Used to automate the creation of an image from a virtual machine.  
 
 .EXAMPLE 
-  .\0_Capture_Image.ps1 -vmNamePrefix "ncdHDP" -storageAccountName "" -imageContainerName ""
+  .\0_Capture_Image.ps1 -vmNamePrefix "ncdCDH" -storageAccountName "" -imageContainerName ""
 
 ############################################################################################################>
 

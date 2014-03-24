@@ -18,9 +18,9 @@ Hadoop on Azure Virtual Machines
   
 .EXAMPLE 
   .\2_Master_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
-    -vmNamePrefix "hdpazure" -cloudServicePrefix "hdpazure" -affinityGroupLocation "East US" -affinityGroupName "hdpazureAG" `
-    -affinityGroupDescription "Affinity Group used for HDP on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG HDP" -virtualNetworkName "Hadoop-NetworkHDP" `
-    -virtualSubnetname "App" -storageAccountName "hdpstorage"
+    -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
+    -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
+    -virtualSubnetname "App" -storageAccountName "cdhstorage"
 
 ############################################################################################################>
 
@@ -100,9 +100,9 @@ $image = Get-AzureVMImage |
 $imageName = $image.ImageName
 
 ###########################################################################################################
-## Create the virtual machine for the master image to clone the cluster nodes 
+## Create the virtual machine to serve as the master clone image used to generate the cluster nodes 
 ###########################################################################################################
-$vmName = $vmNamePrefix + "M"
-$cloudServiceName = $cloudServicePrefix + "M"
+$vmName = $vmNamePrefix + "c"
+$cloudServiceName = $cloudServicePrefix + "c"
     
 .\0_Create-VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks 0

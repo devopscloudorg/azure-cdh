@@ -18,9 +18,9 @@ Hadoop on Azure Virtual Machines
   
 .EXAMPLE 
   .\1_Management_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
-    -vmNamePrefix "hdpazure" -cloudServicePrefix "hdpazure" -affinityGroupLocation "East US" -affinityGroupName "hdpazureAG" `
-    -affinityGroupDescription "Affinity Group used for HDP on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG HDP" -virtualNetworkName "Hadoop-NetworkHDP" `
-    -virtualSubnetname "App" -storageAccountName "hdpstorage"
+    -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
+    -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
+    -virtualSubnetname "App" -storageAccountName "cdhstorage", $installerPort 7180
 
 ############################################################################################################>
 
@@ -83,7 +83,11 @@ param(
 
     # The name of the storage account. 
     [Parameter(Mandatory = $true)]  
-    [string]$storageAccountName
+    [string]$storageAccountName,
+
+    # The port for the installer endpoint. 
+    [Parameter(Mandatory = $true)]  
+    [int]$installerPort
     ) 
 
 ###########################################################################################################
@@ -107,5 +111,5 @@ $cloudServiceName = $cloudServicePrefix + "0"
     
 .\0_Create-VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks 
 $vm = Get-AzureVM $vmName
-Add-AzureEndpoint -Protocol tcp -PublicPort 8080 -LocalPort 8080 -Name "Ambari" -VM $vm | Update-AzureVM
+Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
 

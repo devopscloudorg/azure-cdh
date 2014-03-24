@@ -11,9 +11,9 @@ Hadoop on Azure Virtual Machines
 #Set the variables.
 #These should match the variables used to create the cluster.
 ############################################################################################################>
-$affinityGroupName = "ncdAGHDP"
-$virtualNetworkName = "Hadoop-NetworkHDP"
-$vmNamePrefix = "hdpazure"
+$affinityGroupName = "ncdAGCDH"
+$virtualNetworkName = "Hadoop-NetworkCDH"
+$vmNamePrefix = "cdhazure"
 
 <#############################################################################################################
 #Remove the Cloud Services, VMs, and Disks
