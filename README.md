@@ -26,10 +26,10 @@ High level steps for creating the cluster using the PowerShell method are as fol
 
 
 1.	Create the Management Node: Execute 1_Management_Node.ps1.  This step will create the Affinity Group, Virtual Network, Storage Account, and the Management virtual machine
-2.	Create the Master Node with the PowerShell script.
-3.	Manually configure the Management and Master nodes.  Set root passwords, set up passwordless SSH between the Management Node and the Master Node, and set various server configurations to meet HDP requirements.
-4.	Prepare the Master Node for provisioning by running waagent.
-5.	Create the Windows Azure Master Image
+2.	Create the Clone Node with the PowerShell script.
+3.	Manually configure the Management and Master nodes.  Set root passwords, set up passwordless SSH between the Management Node and the Clone Node, and set various server configurations to meet HDP requirements.
+4.	Prepare the Clone Node for provisioning by running waagent.
+5.	Create the Windows Azure Clone Image
 6.	Execute 3_Cluster_Nodes  to create multiple Windows Azure Virtual Machines using the Master Node image.
 7.	Run scripts to update /etc/hosts and mount drives on the cluster machines.
 8.	Install Cloudera Manager on Management Node.
@@ -38,8 +38,8 @@ High level steps for creating the cluster using the PowerShell method are as fol
 ###1_Management_Node.ps1
 Creates a linux virtual machine based on an image in the gallery of your choosing.  The Management Node will be used to manage the deployment process and host Ambari for cluster management.  This script will call 0_Create_AG_Storage_VNet.ps1 and 0_Create-VM. 
 
-###2_Master_Node.ps1
-Creates a linux virtual machine based on an image in the gallery of your choosing.  The Master Node will later become the master image which is used to generate the cluster virtual machines.  This script will call 0_Create_AG_Storage_VNet.ps1 and 0_Create-VM. 
+###2_Clone_Node.ps1
+Creates a linux virtual machine based on an image in the gallery of your choosing.  The Clone Node will later become the Clone image which is used to generate the cluster virtual machines.  This script will call 0_Create_AG_Storage_VNet.ps1 and 0_Create-VM. 
 
 ###3_Cluster_Nodes.ps1
 Creates a linux virtual machine based on the image that is created from the Master Node.  This script will call 0_Create-VM.  This script will also generate a hosts.txt file and mountdrive.sh file, which are used in the process to set up the machines.
