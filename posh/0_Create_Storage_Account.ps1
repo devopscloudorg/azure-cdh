@@ -32,6 +32,7 @@ $storageAccount = Get-AzureStorageAccount | Where {$_.StorageAccountName -eq $st
 if ($storageAccount -eq $null) { 
     Write-Verbose "Creating new storage account $storageAccountName." 
     $storageAccount = New-AzureStorageAccount –StorageAccountName $storageAccountName -AffinityGroup $affinityGroupName 
+    Set-AzureStorageAccount -StorageAccountName $storageAccountName –GeoReplicationEnabled $false 
 } else { 
     Write-Verbose "Using existing storage account $storageAccountName." 
 } 

@@ -1,4 +1,4 @@
-﻿<#############################################################################################################
+﻿<############################################################################################################
 Hadoop on Azure Virtual Machines
 
 .SYNOPSIS 
@@ -20,7 +20,7 @@ Hadoop on Azure Virtual Machines
   .\1_Management_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
     -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
     -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
-    -virtualSubnetname "App" -storageAccountName "cdhstorage", $installerPort 7180
+    -virtualSubnetname "App" -storageAccountName "cdhstorage" -installerPort 7180 -hostsfile ".\hosts.txt" -mntscript ".\mountdrive.sh" 
 
 ############################################################################################################>
 
@@ -87,7 +87,15 @@ param(
 
     # The port for the installer endpoint. 
     [Parameter(Mandatory = $true)]  
-    [int]$installerPort
+    [int]$installerPort,
+
+    # The location of the hosts file. 
+    [Parameter(Mandatory = $false)]  
+    [string]$hostsfile = ".\hosts.txt",
+
+    # The location of the mntscript. 
+    [Parameter(Mandatory = $false)]  
+    [string]$mntscript = ".\mountdrive.sh"
     ) 
 
 ###########################################################################################################
@@ -113,3 +121,11 @@ $cloudServiceName = $cloudServicePrefix + "0"
 $vm = Get-AzureVM $vmName
 Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
 
+#write to the mountdrive.sh file
+    "ssh root@$vmName /root/scripts/makefilesystem.sh" | Out-File $mntscript -encoding ASCII -append 
+	"scp /etc/hosts root@${vmName}:/etc" | Out-File $mntscript -encoding ASCII -append 
+
+#write to the hosts.txt file
+    $IpAddress = (Get-AzureVM $vmName).IpAddress
+    #echo "$vmName`t$IpAddress" >> $hostsfile 
+    "$IpAddress`t$vmName" | Out-File $hostsfile -encoding ASCII -append 

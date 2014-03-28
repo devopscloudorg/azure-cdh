@@ -2,7 +2,7 @@
 Hadoop on Azure Virtual Machines
 
 .SYNOPSIS 
-  Create the Management node for Hadoop on Azure deployments on Azure virtual machines.  
+  Create the Clone node for Hadoop on Azure deployments on Azure virtual machines.  
 
 .DESCRIPTION 
   Used to automate the creation of Windows Azure infrastructure to support the deploying Hadoop  
@@ -17,7 +17,7 @@ Hadoop on Azure Virtual Machines
     Set-AzureSubscription -SubscriptionName "MySubscription" -CurrentStorageAccount "MyStorageAccount" 
   
 .EXAMPLE 
-  .\2_Master_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
+  .\2_Clone_Node.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
     -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
     -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
     -virtualSubnetname "App" -storageAccountName "cdhstorage"
