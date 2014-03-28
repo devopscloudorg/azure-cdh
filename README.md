@@ -1,7 +1,7 @@
 azure-cdh
 =========
 
-Scripts to Automate Cloudera CDH deployment on Windows Azure Virtual Machines(Linux)
+Currently in preview. Scripts to Automate Cloudera CDH deployment on Windows Azure Virtual Machines(Linux)
 
 The focus on the current version is to automate creation of the infrastructure. Future versions will include best practices for disk alignment to optimize for most applications.
 
