@@ -11,6 +11,8 @@ Hadoop on Azure Virtual Machines
   The virtual machines will be named based on a prefix.  Each cloud service contains a single virtual machine.
   
   The script will accept a parameter specifying the number of disks to attach to each virtual machine.
+
+  The Virtual Machine will be assigned a static IP.
   
   Note: This script requires an Azure Storage Account to run.  A storage account can be  
   specified by setting the subscription configuration.  For example: 
@@ -20,7 +22,7 @@ Hadoop on Azure Virtual Machines
   .\1_Management_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
     -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
     -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
-    -virtualSubnetname "App" -storageAccountName "cdhstorage" -installerPort 7180 -hostsfile ".\hosts.txt" -mntscript ".\mountdrive.sh" 
+    -virtualSubnetname "App" -storageAccountName "cdhstorage" -installerPort 7180 -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
 
 ############################################################################################################>
 
@@ -93,10 +95,21 @@ param(
     [Parameter(Mandatory = $false)]  
     [string]$hostsfile = ".\hosts.txt",
 
-    # The location of the mntscript. 
+    # The location of the hostscript. 
     [Parameter(Mandatory = $false)]  
-    [string]$mntscript = ".\mountdrive.sh"
+    [string]$hostscript = ".\hostscript.sh"
     ) 
+
+###########################################################################################################
+## Remove previous versions of the files
+###########################################################################################################
+If (Test-Path $hostsfile) {
+    Remove-Item $hostsfile
+}
+
+If (Test-Path $hostscript) {
+    Remove-Item $hostscript
+}
 
 ###########################################################################################################
 ## Create the Affinity Group, the Virtual Network and the Storage Account
@@ -113,19 +126,26 @@ $imageName = $image.ImageName
 
 ###########################################################################################################
 ## Create the management node virtual machine
+### Write the hostscript and hosts file
+### Set static IP on the VM
 ###########################################################################################################
 $vmName = $vmNamePrefix + "0"
 $cloudServiceName = $cloudServicePrefix + "0"
     
-.\0_Create-VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks 
-$vm = Get-AzureVM $vmName
-Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
+.\0_Create_VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks 
 
-#write to the mountdrive.sh file
-    "ssh root@$vmName /root/scripts/makefilesystem.sh" | Out-File $mntscript -encoding ASCII -append 
-	"scp /etc/hosts root@${vmName}:/etc" | Out-File $mntscript -encoding ASCII -append 
+#capture vm variable
+    $vm = Get-AzureVM -ServiceName $cloudServiceName -Name $vmName
 
-#write to the hosts.txt file
-    $IpAddress = (Get-AzureVM $vmName).IpAddress
-    #echo "$vmName`t$IpAddress" >> $hostsfile 
+#Add endpoint for the distribution installation software
+    Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
+
+# Write to the hostscript.sh file
+	"scp /etc/hosts root@${vmName}:/etc" | Out-File $hostscript -encoding ASCII -append 
+
+# Write to the hosts.txt file
+    $IpAddress = $vm.IpAddress
     "$IpAddress`t$vmName" | Out-File $hostsfile -encoding ASCII -append 
+
+# Set Static IP on the VM
+    Set-AzureStaticVNetIP -IPAddress $IpAddress -VM $vm | Update-AzureVM

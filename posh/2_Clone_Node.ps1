@@ -17,7 +17,7 @@ Hadoop on Azure Virtual Machines
     Set-AzureSubscription -SubscriptionName "MySubscription" -CurrentStorageAccount "MyStorageAccount" 
   
 .EXAMPLE 
-  .\2_Clone_Node.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
+  .\2_Clone_Node.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 1000 -numofDisks 8 `
     -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
     -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
     -virtualSubnetname "App" -storageAccountName "cdhstorage"
@@ -105,4 +105,4 @@ $imageName = $image.ImageName
 $vmName = $vmNamePrefix + "c"
 $cloudServiceName = $cloudServicePrefix + "c"
     
-.\0_Create-VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks 0
+.\0_Create_VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks
