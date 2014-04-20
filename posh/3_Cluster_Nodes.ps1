@@ -13,9 +13,9 @@ Hadoop on Azure Virtual Machines
   4/19/2014: Added static IP.  Updated write to hostscript.sh and removed mountscript.sh. Added default parameter values for $numDisks and $diskSizeInGB.
   
 .EXAMPLE 
-  .\3_Cluster_Nodes.ps1 -imageName "azurehdpm" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
-    -vmNamePrefix "azurehdp" -cloudServicePrefix "azurehdp" -numNodes 1 -affinityGroupName "azurehdpAG" -virtualNetworkName "Hadoop-NetworkHDP" -virtualSubnetname "App" `
-    -storageAccountName "hdpstorage" -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
+  .\3_Cluster_Nodes.ps1 -imageName "azurehadoop" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
+    -vmNamePrefix "azurehadoop" -cloudServicePrefix "azurehadoop" -numNodes 1 -affinityGroupName "azurehadoopAG" -virtualNetworkName "Hadoop-Network" -virtualSubnetname "App" `
+    -storageAccountName "hadoopstorage" -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
 
 ############################################################################################################>
 

@@ -5,7 +5,7 @@ Hadoop on Azure Virtual Machines
   Used to automate the creation of an image from a virtual machine.  
 
 .EXAMPLE 
-  .\0_Capture_Image.ps1 -cloudServiceName "hdpazurec" -vmName "hdpazurec" -imageName "hdpazurec" -imageLabel "Cloudera EDH Clone"
+  .\0_Capture_Image.ps1 -cloudServiceName "hadoopazurec" -vmName "hadoopazurec" -imageName "hadoopazurec" -imageLabel "Hadoop Clone"
 
 ############################################################################################################>
 

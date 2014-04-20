@@ -9,9 +9,9 @@ Hadoop on Azure Virtual Machines
   on Windows Azure Virtual Machines.  
 
 .EXAMPLE 
-  .\0_Create_AG_Storage_VNet -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
-    -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
-    -virtualSubnetname "App" -storageAccountName "cdhstorage"
+  .\0_Create_AG_Storage_VNet -affinityGroupLocation "East US" -affinityGroupName "hadoopazureAG" `
+    -affinityGroupDescription "Affinity Group used for hadoop on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG" -virtualNetworkName "Hadoop-Network" `
+    -virtualSubnetname "App" -storageAccountName "hadoopstorage"
 
 ############################################################################################################>
 

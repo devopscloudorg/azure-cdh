@@ -20,9 +20,9 @@ Hadoop on Azure Virtual Machines
   
 .EXAMPLE 
   .\1_Management_Nodes.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 100 -numofDisks 2 `
-    -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
-    -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
-    -virtualSubnetname "App" -storageAccountName "cdhstorage" -installerPort 7180 -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
+    -vmNamePrefix "hadoopazure" -cloudServicePrefix "hadoopazure" -affinityGroupLocation "East US" -affinityGroupName "hadoopazureAG" `
+    -affinityGroupDescription "Affinity Group used for hadoop on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG" -virtualNetworkName "Hadoop-Network" `
+    -virtualSubnetname "App" -storageAccountName "hadoopstorage" -installerPort 7180 -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
 
 ############################################################################################################>
 

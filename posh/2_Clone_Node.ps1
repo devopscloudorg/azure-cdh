@@ -18,9 +18,9 @@ Hadoop on Azure Virtual Machines
   
 .EXAMPLE 
   .\2_Clone_Node.ps1 -imageName "OpenLogic" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 1000 -numofDisks 8 `
-    -vmNamePrefix "cdhazure" -cloudServicePrefix "cdhazure" -affinityGroupLocation "East US" -affinityGroupName "cdhazureAG" `
-    -affinityGroupDescription "Affinity Group used for CDH on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG CDH" -virtualNetworkName "Hadoop-NetworkCDH" `
-    -virtualSubnetname "App" -storageAccountName "cdhstorage"
+    -vmNamePrefix "hadoopazure" -cloudServicePrefix "hadoopazure" -affinityGroupLocation "East US" -affinityGroupName "hadoopazureAG" `
+    -affinityGroupDescription "Affinity Group used for hadoop on Azure VM" -affinityGroupLabel "Hadoop on Azure VM AG" -virtualNetworkName "Hadoop-Network" `
+    -virtualSubnetname "App" -storageAccountName "hadoopstorage"
 
 ############################################################################################################>
 
