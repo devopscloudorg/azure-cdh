@@ -133,27 +133,18 @@ $vmName = $vmNamePrefix + "0"
 $cloudServiceName = $cloudServicePrefix + "0"
     
 .\0_Create_VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks 
-<<<<<<< HEAD
 
 #capture vm variable
     $vm = Get-AzureVM -ServiceName $cloudServiceName -Name $vmName
+    $IpAddress = $vm.IpAddress
 
 #Add endpoint for the distribution installation software
     Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
-=======
-$vm = Get-AzureVM $vmName
-Add-AzureEndpoint -Protocol tcp -PublicPort $installerPort -LocalPort $installerPort -Name "Installer" -VM $vm | Update-AzureVM
->>>>>>> 04f31e2013bee8c6c7b6e9bf366e4ef4d45a65e2
 
 # Write to the hostscript.sh file
 	"scp /etc/hosts root@${vmName}:/etc" | Out-File $hostscript -encoding ASCII -append 
 
 # Write to the hosts.txt file
-<<<<<<< HEAD
-    $IpAddress = $vm.IpAddress
-=======
-    $IpAddress = (Get-AzureVM $vmName).IpAddress
->>>>>>> 04f31e2013bee8c6c7b6e9bf366e4ef4d45a65e2
     "$IpAddress`t$vmName" | Out-File $hostsfile -encoding ASCII -append 
 
 # Set Static IP on the VM
