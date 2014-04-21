@@ -13,8 +13,8 @@ Hadoop on Azure Virtual Machines
   4/19/2014: Added static IP.  Updated write to hostscript.sh and removed mountscript.sh. Added default parameter values for $numDisks and $diskSizeInGB.
   
 .EXAMPLE 
-  .\3_Cluster_Nodes.ps1 -imageName "azurehadoop" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
-    -vmNamePrefix "azurehadoop" -cloudServicePrefix "azurehadoop" -numNodes 1 -affinityGroupName "azurehadoopAG" -virtualNetworkName "Hadoop-Network" -virtualSubnetname "App" `
+  .\3_Cluster_Nodes.ps1 -imageName "azurehadoopm" -adminUserName "clusteradmin" -adminPassword "Password.1" -instanceSize "ExtraLarge" -diskSizeInGB 0 -numofDisks 0 `
+    -vmNamePrefix "azurehadoop" -cloudServicePrefix "azurehadoop" -numNodes 1 -affinityGroupName "azurehadoopAG" -virtualNetworkName "Hadoop-Networkhadoop" -virtualSubnetname "App" `
     -storageAccountName "hadoopstorage" -hostsfile ".\hosts.txt" -hostscript ".\hostscript.sh" 
 
 ############################################################################################################>
@@ -107,23 +107,15 @@ For ($count = 1; $count -le $numNodes; $count++)
     $cloudServiceName = $cloudServicePrefix + $count
     
     .\0_Create_VM.ps1 -imageName $imageName -adminUserName $adminUserName -adminPassword $adminPassword -instanceSize $instanceSize -diskSizeInGB $diskSizeInGB -vmName $vmName -cloudServiceName $cloudServiceName -affinityGroupName $affinityGroupName -virtualNetworkName $virtualNetworkName -virtualSubnetname $virtualSubnetname -numofDisks $numOfDisks 
-<<<<<<< HEAD
 
     #capture vm variable
     $vm = Get-AzureVM -ServiceName $cloudServiceName -Name $vmName
-        
-=======
-    
->>>>>>> 04f31e2013bee8c6c7b6e9bf366e4ef4d45a65e2
+    $IpAddress = $vm.IpAddress
+            
     #write to the hostscript.sh file
     "scp /etc/hosts root@${vmName}:/etc" | Out-File $hostscript -encoding ASCII -append 
 
     #write to the hosts.txt file
-<<<<<<< HEAD
-    $IpAddress = $vm.IpAddress
-=======
-    $IpAddress = (Get-AzureVM $vmName).IpAddress
->>>>>>> 04f31e2013bee8c6c7b6e9bf366e4ef4d45a65e2
     "$IpAddress`t$vmName" | Out-File $hostsfile -encoding ASCII -append 
 
     # Set Static IP on the VM
